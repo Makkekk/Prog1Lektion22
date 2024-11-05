@@ -20,6 +20,8 @@ public class EmployeeWindow extends Stage {
     private CheckBox addCompanyCheckBox;
     private ComboBox<Company> selectCompanyComboBox;
     private Label errorLabel;
+    private TextField employmentYearTextfield;
+
 
     public EmployeeWindow(String title, Employee employee) {
         initStyle(StageStyle.UTILITY);
@@ -50,25 +52,31 @@ public class EmployeeWindow extends Stage {
         Label lblHours = new Label("Hourly Wage");
         pane.add(lblHours, 0, 2);
         wageTextField = new TextField();
-        pane.add(wageTextField, 0, 3);
+        pane.add(wageTextField, 0, 4);
         addCompanyCheckBox = new CheckBox("Company");
-        pane.add(addCompanyCheckBox, 0, 4);
+        pane.add(addCompanyCheckBox, 0, 7);
         ChangeListener<Boolean> listener = (ov, oldValue, newValue) -> selectedCompanyChanged(newValue);
         addCompanyCheckBox.selectedProperty().addListener(listener);
+
+        Label lblEmploymentYear = new Label("Employment Year");
+        pane.add(lblEmploymentYear,0,5);
+        employmentYearTextfield = new TextField();
+        pane.add(employmentYearTextfield,0,6);
+
         selectCompanyComboBox = new ComboBox<>();
-        pane.add(selectCompanyComboBox, 0, 5);
+        pane.add(selectCompanyComboBox, 0, 8);
         selectCompanyComboBox.getItems().addAll(Controller.getCompanies());
         selectCompanyComboBox.setDisable(true);
         Button btnCancel = new Button("Cancel");
-        pane.add(btnCancel, 0, 6);
+        pane.add(btnCancel, 0, 9);
         GridPane.setHalignment(btnCancel, HPos.LEFT);
         btnCancel.setOnAction(event -> cancelAction());
         Button btnOK = new Button("OK");
-        pane.add(btnOK, 0, 6);
+        pane.add(btnOK, 0, 9);
         GridPane.setHalignment(btnOK, HPos.RIGHT);
         btnOK.setOnAction(event -> okAction());
         errorLabel = new Label();
-        pane.add(errorLabel, 0, 7);
+        pane.add(errorLabel, 0, 10);
         errorLabel.setStyle("-fx-text-fill: red");
         initControls();
     }
@@ -77,6 +85,7 @@ public class EmployeeWindow extends Stage {
         if (employee != null) {
             nameTextField.setText(employee.getName());
             wageTextField.setText("" + employee.getWage());
+            employmentYearTextfield.setText("" + employee.getEmploymentYear());
             if (employee.getCompany() != null) {
                 addCompanyCheckBox.setSelected(true);
                 selectCompanyComboBox.getSelectionModel().select(employee.getCompany());
@@ -86,6 +95,7 @@ public class EmployeeWindow extends Stage {
         } else {
             nameTextField.clear();
             wageTextField.clear();
+            employmentYearTextfield.clear();
             selectCompanyComboBox.getSelectionModel().select(0);
         }
     }
@@ -101,8 +111,10 @@ public class EmployeeWindow extends Stage {
             return;
         }
         int wage = -1;
+        int employmentYear;
         try {
             wage = Integer.parseInt(wageTextField.getText().trim());
+            employmentYear = Integer.parseInt(employmentYearTextfield.getText().trim());
         } catch (NumberFormatException ex) {
             errorLabel.setText("Enter a valid number of hours");
             return;
@@ -116,7 +128,7 @@ public class EmployeeWindow extends Stage {
 
         // Call application.controller methods
         if (employee != null) {
-            Controller.updateEmployee(employee, name, wage);
+            Controller.updateEmployee(employee, name, wage,employmentYear);
             if (companyIsSelected) {
                 Controller.addEmployeeToCompany(employee, newCompany);
             } else {
@@ -124,9 +136,9 @@ public class EmployeeWindow extends Stage {
             }
         } else {
             if (companyIsSelected) {
-                Controller.createEmployee(name, wage, newCompany);
+                Controller.createEmployee(name, wage, newCompany, employmentYear);
             } else {
-                Controller.createEmployee(name, wage);
+                Controller.createEmployee(name, wage, employmentYear);
             }
         }
         hide();
