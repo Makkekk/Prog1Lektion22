@@ -1,5 +1,6 @@
 package opgave01.application.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Company {
@@ -7,11 +8,12 @@ public class Company {
     private int hours; // weekly work hours
 
     // link to Employee class (--> 0..*)
+    // Link to Customer class
     private final ArrayList<Employee> employees = new ArrayList<>();
+    private final ArrayList<Customer> customers = new ArrayList<>();
 
     /**
-     *
-     * @param name name of the company
+     * @param name  name of the company
      * @param hours number of weekly work hours
      */
     public Company(String name, int hours) {
@@ -61,6 +63,7 @@ public class Company {
     /**
      * Removes the employee from this company,
      * if the are connected
+     *
      * @param employee
      */
     public void removeEmployee(Employee employee) {
@@ -90,5 +93,24 @@ public class Company {
         return total;
     }
 
+    public ArrayList<Customer> getCustomers() {
+        return customers;
+    }
 
-}
+    public void addCustomer(Customer customer) {
+        if (!customers.contains(customer)) {
+            customer.add(customer);
+            customer.setCompany(this);
+
+
+        }
+    }
+
+    public void removeCustomer(Customer customer) {
+            if (customers.contains(customer)) {
+                customers.remove(customer);
+                customer.setCompany(null);
+
+            }
+        }
+    }

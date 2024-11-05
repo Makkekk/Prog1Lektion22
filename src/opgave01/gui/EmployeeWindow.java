@@ -57,12 +57,12 @@ public class EmployeeWindow extends Stage {
         pane.add(addCompanyCheckBox, 0, 7);
         ChangeListener<Boolean> listener = (ov, oldValue, newValue) -> selectedCompanyChanged(newValue);
         addCompanyCheckBox.selectedProperty().addListener(listener);
-
+        //Updated
         Label lblEmploymentYear = new Label("Employment Year");
         pane.add(lblEmploymentYear,0,5);
         employmentYearTextfield = new TextField();
         pane.add(employmentYearTextfield,0,6);
-
+        //updated
         selectCompanyComboBox = new ComboBox<>();
         pane.add(selectCompanyComboBox, 0, 8);
         selectCompanyComboBox.getItems().addAll(Controller.getCompanies());
@@ -85,7 +85,7 @@ public class EmployeeWindow extends Stage {
         if (employee != null) {
             nameTextField.setText(employee.getName());
             wageTextField.setText("" + employee.getWage());
-            employmentYearTextfield.setText("" + employee.getEmploymentYear());
+            employmentYearTextfield.setText("" + employee.getEmploymentYear()); //updated
             if (employee.getCompany() != null) {
                 addCompanyCheckBox.setSelected(true);
                 selectCompanyComboBox.getSelectionModel().select(employee.getCompany());
@@ -95,7 +95,7 @@ public class EmployeeWindow extends Stage {
         } else {
             nameTextField.clear();
             wageTextField.clear();
-            employmentYearTextfield.clear();
+            employmentYearTextfield.clear(); //updated
             selectCompanyComboBox.getSelectionModel().select(0);
         }
     }
@@ -114,7 +114,7 @@ public class EmployeeWindow extends Stage {
         int employmentYear;
         try {
             wage = Integer.parseInt(wageTextField.getText().trim());
-            employmentYear = Integer.parseInt(employmentYearTextfield.getText().trim());
+            employmentYear = Integer.parseInt(employmentYearTextfield.getText().trim()); //updated
         } catch (NumberFormatException ex) {
             errorLabel.setText("Enter a valid number of hours");
             return;

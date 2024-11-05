@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import opgave01.application.controller.Controller;
 import opgave01.application.model.Company;
+import opgave01.application.model.Customer;
 import opgave01.application.model.Employee;
 
 import java.util.Optional;
@@ -18,6 +19,7 @@ public class CompanyPane extends GridPane {
     private TextField hoursTextField;
     private TextArea employeesTextArea;
     private ListView<Company> companyListView;
+    private TextArea customerTextArea;
 
     public CompanyPane() {
         this.setPadding(new Insets(20));
@@ -30,7 +32,7 @@ public class CompanyPane extends GridPane {
         companyListView = new ListView<>();
         this.add(companyListView, 0, 1, 1, 3);
         companyListView.setPrefWidth(200);
-        companyListView.setPrefHeight(200);
+        companyListView.setPrefHeight(250);
         companyListView.getItems().setAll(Controller.getCompanies());
 
         ChangeListener<Company> listener = (ov, oldCompny, newCompany) -> this.selectedCompanyChanged(newCompany);
@@ -55,14 +57,27 @@ public class CompanyPane extends GridPane {
         GridPane.setValignment(employeesLabel, VPos.BASELINE);
         employeesLabel.setPadding(new Insets(4, 0, 4, 0));
 
+        Label customerLabel = new Label("Customers");
+        this.add(customerLabel,1,4);
+        GridPane.setValignment(customerLabel, VPos.BASELINE);
+        employeesLabel.setPadding(new Insets(4,0,4,0));
+
         employeesTextArea = new TextArea();
         this.add(employeesTextArea, 2, 3);
         employeesTextArea.setPrefWidth(200);
         employeesTextArea.setPrefHeight(100);
         employeesTextArea.setEditable(false);
+        employeesTextArea.setMaxHeight(180);
+
+
+        customerTextArea = new TextArea();
+        this.add(customerTextArea,2,4);
+        customerTextArea.setPrefWidth(200);
+        customerTextArea.setPrefHeight(100);
+        customerTextArea.setEditable(false);
 
         HBox hboxButtons = new HBox(40);
-        this.add(hboxButtons, 0, 4, 3, 1);
+        this.add(hboxButtons, 0, 5, 3, 1);
         hboxButtons.setPadding(new Insets(10, 0, 0, 0));
         hboxButtons.setAlignment(Pos.BASELINE_CENTER);
 
@@ -143,10 +158,17 @@ public class CompanyPane extends GridPane {
                 stringBuilder.append(emp + "\n");
             }
             employeesTextArea.setText(stringBuilder.toString());
+
+            StringBuilder customersStringBuilder = new StringBuilder();
+            for (Customer customer : company.getCustomers()) {
+                customersStringBuilder.append(customer + "\n");
+            }
+            customerTextArea.setText(customersStringBuilder.toString());
         } else {
             nameTextField.clear();
             hoursTextField.clear();
             employeesTextArea.clear();
+            customerTextArea.clear();
         }
     }
 }

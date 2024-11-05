@@ -22,5 +22,8 @@ public class App {
         Controller.createEmployee("Alice Schmidt", 250, ibm,2024);
         Controller.createEmployee("George Down", 150, amd, 2002);
         Controller.createEmployee("Rita Uphill", 300,amd,2001);
+
+        Controller.createCustomer("Karen Thæne");
+        Controller.createCustomer("Anne Dam");
     }
 }
