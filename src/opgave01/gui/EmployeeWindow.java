@@ -53,15 +53,15 @@ public class EmployeeWindow extends Stage {
         pane.add(lblHours, 0, 2);
         wageTextField = new TextField();
         pane.add(wageTextField, 0, 4);
+        Label lblEmploymentYear = new Label("Employment Year");
+        pane.add(lblEmploymentYear,0,5);
+        employmentYearTextfield = new TextField();
+        pane.add(employmentYearTextfield,0,6);
         addCompanyCheckBox = new CheckBox("Company");
         pane.add(addCompanyCheckBox, 0, 7);
         ChangeListener<Boolean> listener = (ov, oldValue, newValue) -> selectedCompanyChanged(newValue);
         addCompanyCheckBox.selectedProperty().addListener(listener);
         //Updated
-        Label lblEmploymentYear = new Label("Employment Year");
-        pane.add(lblEmploymentYear,0,5);
-        employmentYearTextfield = new TextField();
-        pane.add(employmentYearTextfield,0,6);
         //updated
         selectCompanyComboBox = new ComboBox<>();
         pane.add(selectCompanyComboBox, 0, 8);

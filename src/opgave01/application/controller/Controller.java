@@ -124,14 +124,32 @@ public class Controller {
 
     // -------------------------------------------------------------------------
 
-
-
-
+    /**
+     * * Creates a costumer without a company
+     * @param name
+     * @return customer
+     */
     public static Customer createCustomer(String name) {
         Customer customer = new Customer(name);
         Storage.addCustomer(customer);
         return customer;
     }
+
+    public static Customer createCustomer(String name, Company company) {
+        Customer customer = createCustomer(name);
+        company.addCustomer(customer);
+        return customer;
+    }
+    /**
+     * Updates the Customer.<br />
+     */
+    public static void updateCustomer(Customer customer, String name) {
+        customer.setName(name);
+
+    }
+    /**
+     * Creates a customer.<br />
+     */
 
 
     public static void addCustomerToCompany(Customer customer, Company company) {
@@ -144,5 +162,11 @@ public class Controller {
             company.removeCustomer(customer);
         }
     }
+
+    public static ArrayList<Customer> getCustomer() {
+        return Storage.getCustomers();
+    }
 }
+
+
 

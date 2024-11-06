@@ -6,12 +6,11 @@ import java.util.ArrayList;
 public class Customer {
     private String name;
 
-    // A arraylist that this costumer is associated with many-to-many
-    private ArrayList<Company> companies;
+    // link to company class (--> 0..1)
+    private Company company;
 
     public Customer(String name) {
         this.name = name;
-        this.companies = new ArrayList<>();
     }
 
     public String getName() {
@@ -32,15 +31,16 @@ public class Customer {
     public void add(Customer customer) {
     }
 
+
     public void setCompany(Company company) {
-
-    }
-
-    public void addCompany(Company company) {
-        if (!companies.contains(company)) {
-            companies.add(company); // Add the company to this customer's list
-            company.addCustomer(this);
+            if (this.company != company) {
+                Company oldCompany = this.company;
+                if (oldCompany != null) {
+                    oldCompany.removeCustomer(this);
+                }
+                this.company = company;
+                if (company != null)
+                    company.addCustomer(this);
+            }
         }
     }
-
-}

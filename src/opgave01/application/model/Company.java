@@ -76,7 +76,7 @@ public class Company {
     // -----------------------------------------------------------------------------
 
     /**
-     * Returns the count of employees in this company.
+     * Returns if employees list is not empty
      */
     public boolean hasEmployees() {
         return !employees.isEmpty();
@@ -87,8 +87,8 @@ public class Company {
      */
     public int totalWeeklySalary() {
         int total = 0;
-        for (Employee emp : employees) {
-            total += emp.weeklySalary();
+        for (Employee employee : employees) {
+            total += employee.weeklySalary();
         }
         return total;
     }

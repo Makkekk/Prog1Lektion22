@@ -38,6 +38,8 @@ public class CompanyPane extends GridPane {
         ChangeListener<Company> listener = (ov, oldCompny, newCompany) -> this.selectedCompanyChanged(newCompany);
         companyListView.getSelectionModel().selectedItemProperty().addListener(listener);
 
+
+
         Label lblName = new Label("Name:");
         this.add(lblName, 1, 1);
 
@@ -154,14 +156,14 @@ public class CompanyPane extends GridPane {
             nameTextField.setText(company.getName());
             hoursTextField.setText("" + company.getHours());
             StringBuilder stringBuilder = new StringBuilder();
-            for (Employee emp : company.getEmployees()) {
-                stringBuilder.append(emp + "\n");
+            for (Employee employee : company.getEmployees()) {
+                stringBuilder.append(employee + "\n");
             }
             employeesTextArea.setText(stringBuilder.toString());
 
             StringBuilder customersStringBuilder = new StringBuilder();
             for (Customer customer : company.getCustomers()) {
-                customersStringBuilder.append(customer + "\n");
+            customersStringBuilder.append(customer + "\n");
             }
             customerTextArea.setText(customersStringBuilder.toString());
         } else {
