@@ -22,7 +22,7 @@ public class EmployeePane extends GridPane {
 
     public EmployeePane() {
         this.setPadding(new Insets(20));
-        this.setHgap(20);
+        this.setHgap(20);d
         this.setVgap(10);
         this.setGridLinesVisible(false);
 
