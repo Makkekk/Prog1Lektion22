@@ -3,6 +3,10 @@ package opgave01.gui;
 import javafx.application.Application;
 import opgave01.application.controller.Controller;
 import opgave01.application.model.Company;
+import opgave01.application.model.Customer;
+import opgave01.storage.Storage;
+
+import javax.naming.ldap.Control;
 
 public class App {
     public static void main(String[] args) {
@@ -23,7 +27,11 @@ public class App {
         Controller.createEmployee("George Down", 150, amd, 2002);
         Controller.createEmployee("Rita Uphill", 300,amd,2001);
 
-        Controller.createCustomer("Karen Thæne");
-        Controller.createCustomer("Anne Dam");
+        Controller.createCustomer("Karen Thæne",ibm);
+        Controller.createCustomer("Anne Dam", ibm);
+
+
+
+
     }
 }

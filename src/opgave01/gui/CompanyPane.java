@@ -12,6 +12,7 @@ import opgave01.application.model.Company;
 import opgave01.application.model.Customer;
 import opgave01.application.model.Employee;
 
+import java.util.List;
 import java.util.Optional;
 
 public class CompanyPane extends GridPane {
@@ -62,7 +63,8 @@ public class CompanyPane extends GridPane {
         Label customerLabel = new Label("Customers");
         this.add(customerLabel,1,4);
         GridPane.setValignment(customerLabel, VPos.BASELINE);
-        employeesLabel.setPadding(new Insets(4,0,4,0));
+        customerLabel.setPadding(new Insets(4,0,4,0));
+
 
         employeesTextArea = new TextArea();
         this.add(employeesTextArea, 2, 3);
@@ -95,9 +97,18 @@ public class CompanyPane extends GridPane {
         hboxButtons.getChildren().add(deleteButton);
         deleteButton.setOnAction(event -> this.deleteAction());
 
+        Button createCustomer = new Button("Create Customer");
+        hboxButtons.getChildren().add(createCustomer);
+        createCustomer.setOnAction(event -> this.createCustomer());
+
+        Button chooseCustomer = new Button("Vælg Customer");
+        hboxButtons.getChildren().add(chooseCustomer);
+        chooseCustomer.setOnAction(event -> this.addCustomersToCompany());
+
         if (!companyListView.getItems().isEmpty()) {
             companyListView.getSelectionModel().select(0);
         }
+
     }
 
     // -------------------------------------------------------------------------
@@ -144,6 +155,9 @@ public class CompanyPane extends GridPane {
             }
         }
     }
+    private void createCustomer() {
+        new CustomerWindow("Create customer").showAndWait();
+    }
 
     // -------------------------------------------------------------------------
 
@@ -171,6 +185,19 @@ public class CompanyPane extends GridPane {
             hoursTextField.clear();
             employeesTextArea.clear();
             customerTextArea.clear();
+        }
+    }
+    private void addCustomersToCompany() {
+        Company selectedCompany = companyListView.getSelectionModel().getSelectedItem();
+        if (selectedCompany != null) {
+            new SelectCustomerWindow("Select Customers", selectedCompany).showAndWait();
+        } else {
+            // Display an error if no company is selected
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("No company selected");
+            alert.setContentText("Please select a company before adding customers.");
+            alert.showAndWait();
         }
     }
 }

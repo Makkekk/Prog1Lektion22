@@ -94,12 +94,12 @@ public class Company {
     }
 
     public ArrayList<Customer> getCustomers() {
-        return customers;
+        return new ArrayList<>(customers);
     }
 
     public void addCustomer(Customer customer) {
         if (!customers.contains(customer)) {
-            customer.add(customer);
+            customers.add(customer);
             customer.setCompany(this);
 
 

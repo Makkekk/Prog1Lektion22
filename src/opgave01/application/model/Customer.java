@@ -23,9 +23,8 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "name:'" + name + '\'' +
-                '}';
+        return  name;
+
     }
 
     public void add(Customer customer) {
@@ -43,4 +42,8 @@ public class Customer {
                     company.addCustomer(this);
             }
         }
+
+    public Company getCompany() {
+        return company;
     }
+}

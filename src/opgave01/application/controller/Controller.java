@@ -129,21 +129,18 @@ public class Controller {
      * @param name
      * @return customer
      */
-    public static Customer createCustomer(String name) {
-        Customer customer = new Customer(name);
-        Storage.addCustomer(customer);
-        return customer;
-    }
+
 
     public static Customer createCustomer(String name, Company company) {
-        Customer customer = createCustomer(name);
-        company.addCustomer(customer);
+        Customer customer = new Customer(name);
+        customer.setCompany(company);
+        Storage.addCustomer(customer);
         return customer;
     }
     /**
      * Updates the Customer.<br />
      */
-    public static void updateCustomer(Customer customer, String name) {
+    public static void updateCustomer(Customer customer, String name, Company selectedCompany) {
         customer.setName(name);
 
     }
@@ -151,10 +148,10 @@ public class Controller {
      * Creates a customer.<br />
      */
 
-
     public static void addCustomerToCompany(Customer customer, Company company) {
-        company.addCustomer(customer);
-
+        if (company != null && customer != null) {
+            company.addCustomer(customer);
+        }
     }
 
     public static void removeCustomerFromCompany(Customer customer, Company company) {
@@ -163,9 +160,11 @@ public class Controller {
         }
     }
 
-    public static ArrayList<Customer> getCustomer() {
+    public static ArrayList<Customer> getCustomers() {
         return Storage.getCustomers();
     }
+
+
 }
 
 
